@@ -14,14 +14,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  OUT_OF_STOCK
+}
+
 model Product {
-  id          Int       @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
   description String?
   price       Float
-  stock       Int       @default(0)
-  creatAt     DateTime  @default(now())
+  stock       Int           @default(0)
+  creatAt     DateTime      @default(now())
   deleteAt    DateTime?
+  category    category?     @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  status      ProductStatus @default(ACTIVE)
+}
+
+model category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  product Product[]
 }
 
 // model Author {

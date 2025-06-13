@@ -1,8 +1,10 @@
 import prisma from "../config/prisma.js";
 
-export async function getAllProducts() {
+export async function getAllProducts(status, page, limit) {
   const products = await prisma.product.findMany({
-    where: { deleteAt: null },
+    skip: (page - 1) * limit,
+    take: limit,
+    where: { deleteAt: null, status: status || "ACTIVE" },
   });
   return products;
 }

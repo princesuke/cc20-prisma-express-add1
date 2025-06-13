@@ -7,7 +7,12 @@ import {
 
 export async function getProducts(req, res) {
   try {
-    const products = await getAllProducts();
+    const { status, page, limit } = req.query;
+    const products = await getAllProducts(
+      status,
+      parseInt(page),
+      parseInt(limit)
+    );
     res.json({ products });
   } catch (err) {
     res.status(500).json({ message: err.message });
