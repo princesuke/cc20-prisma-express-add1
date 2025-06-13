@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  stock       Int       @default(0)
+  creatAt     DateTime  @default(now())
+  deleteAt    DateTime?
+}
+
+// model Author {
+//   id    Int    @id @default(autoincrement())
+//   name  String
+//   books Book[]
+// }
+
+// model Book {
+//   id       Int    @id @default(autoincrement())
+//   title    String
+//   author   Author @relation(fields: [authorId], references: [id])
+//   authorId Int
+// }
+
+// enum ActivityType {
+//   SPORT
+//   CULTURE
+//   ACADEMIC
+// }
+
+// model Student {
+//   id         Int               @id @default(autoincrement())
+//   name       String
+//   email      String            @unique
+//   activities StudentActivity[]
+// }
+
+// model Activity {
+//   id           Int               @id @default(autoincrement())
+//   title        String
+//   type         ActivityType
+//   participants StudentActivity[]
+// }
+
+// model StudentActivity {
+//   id         Int      @id @default(autoincrement())
+//   student    Student  @relation(fields: [studentId], references: [id])
+//   studentId  Int
+//   activity   Activity @relation(fields: [activityId], references: [id])
+//   activityId Int
+//   joinDate   DateTime @default(now())
+// }
+
+// // 6
+
+// model User {
+//   id       Int       @id @default(autoincrement())
+//   createAt DateTime  @default(now())
+//   email    String    @unique
+//   name     String?
+//   comments Comment[]
+// }
+
+// model Post {
+//   id       Int       @id @default(autoincrement())
+//   comments Comment[]
+// }
+
+// model Comment {
+//   id              Int       @id @default(autoincrement())
+//   text            String
+//   User            User?     @relation(fields: [userId], references: [id])
+//   userId          Int?
+//   Post            Post?     @relation(fields: [postId], references: [id])
+//   postId          Int?
+//   parentComment   Comment?  @relation("CommentReplies", fields: [parentCommentId], references: [id])
+//   parentCommentId Int?
+//   replies         Comment[] @relation("CommentReplies")
+// }
+
+//lab7
+
+// model Category {
+//   id       Int       @id @default(autoincrement())
+//   name     String
+//   products Product[]
+// }
+
+// model Tag {
+//   id       Int       @id @default(autoincrement())
+//   name     String
+//   products Product[]
+// }
+
+// enum Size {
+//   S
+//   M
+//   L
+//   XL
+// }
+
+// enum Color {
+//   RED
+//   BLUE
+//   GREEN
+//   BLACK
+// }
+
+// model Variant {
+//   id         Int      @id @default(autoincrement())
+//   sku        String   @unique
+//   size       Size
+//   color      Color
+//   extraPrice Float
+//   product    Product? @relation(fields: [productId], references: [id])
+//   productId  Int?
+// }
+
+// enum MovementType {
+//   IN
+//   OUT
+// }
+
+// model StockMovement {
+//   id        Int          @id @default(autoincrement())
+//   type      MovementType
+//   quantity  Int
+//   createAt  DateTime     @default(now())
+//   product   Product?     @relation(fields: [productId], references: [id])
+//   productId Int?
+// }
+
+// model Product {
+//   id          Int             @id @default(autoincrement())
+//   name        String
+//   description String?
+//   price       Float
+//   stock       Int             @default(0)
+//   category    Category?       @relation(fields: [categoryId], references: [id])
+//   categoryId  Int?
+//   tags        Tag[]
+//   basePrice   Float?
+//   variants    Variant[]
+//   deleteAt    DateTime?
+//   createAt    DateTime        @default(now())
+//   updateAt    DateTime?       @updatedAt
+//   timestamp   DateTime?       @default(now()) @db.Timestamp(0)
+//   movements   StockMovement[]
+//   discounts   Discount[]      @relation("ProductDiscounts")
+// }
+
+// model Discount {
+//   id        Int       @id @default(autoincrement())
+//   title     String
+//   percent   Float
+//   startDate DateTime
+//   endDate   DateTime
+//   products  Product[] @relation("ProductDiscounts")
+// }
